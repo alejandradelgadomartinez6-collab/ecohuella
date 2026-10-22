@@ -1,0 +1,1337 @@
+:root {
+    --primary-dark: #13be60;
+    --primary-medium: #0F5C47;
+    --primary-green: #091b11;
+    --accent-green: #7CB342;
+    --light-bg: #F4F7F6;
+    --card-bg: #FFFFFF;
+    --text-dark: #2C3E50;
+    --text-muted: #6C757D;
+    --border-color: #E2E8F0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-dark);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand i {
+    font-size: 24px;
+    color: var(--accent-green);
+}
+
+.brand h2 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.nav-menu {
+    list-style: none;
+    margin-top: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.nav-item {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #C2D6D0;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: var(--primary-medium);
+    color: white;
+    border-left: 4px solid var(--accent-green);
+}
+
+.nav-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Main Container */
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+
+.header {
+    background-color: var(--card-bg);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    min-height: 50px;
+}
+
+/* Ocultar la barra superior en laptop si solo tenía el perfil duplicado */
+@media (min-width: 769px) {
+    .header {
+        display: none; /* Oculta la barra superior en laptop ya que no se necesita el menú hamburguesa */
+    }
+
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--primary-medium);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Section Content */
+.view-content {
+    padding: 30px;
+    display: none;
+}
+
+.view-content.active {
+    display: block;
+}
+
+/* Layout Helpers */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    border: 1px solid var(--border-color);
+}
+
+.text-center { text-align: center; }
+.flex-center { display: flex; flex-direction: column; align-items: center; }
+.muted { color: var(--text-muted); font-size: 14px; }
+.small { font-size: 12px; }
+.mb-15 { margin-bottom: 15px; }
+.mb-20 { margin-bottom: 20px; }
+.mt-15 { margin-top: 15px; }
+.icon-primary { color: var(--primary-medium); }
+.text-success { color: #2E7D32; }
+
+/* Banner */
+/* Banner de Inicio con la imagen de fondo personalizada */
+.banner {
+    position: relative;
+    /* Capa oscura translúcida para garantizar legibilidad + la imagen local */
+    background: linear-gradient(135deg, rgba(57, 211, 172, 0.75) 0%, rgba(10, 70, 50, 0.65) 100%), 
+                url('assets/banner.pnj.jfif') center/cover no-repeat;
+    border-radius: 16px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 56, 43, 0.15);
+}
+
+.banner h1 {
+    color: #FFFFFF;
+    font-size: 32px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.banner .tagline {
+    font-weight: 600;
+    color: #A5D6A7;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.banner p {
+    color: #E8F5E9;
+    font-size: 14px;
+    max-width: 500px;
+}
+
+.banner-icon {
+    font-size: 110px;
+    color: rgba(255, 255, 255, 0.2);
+
+}
+
+
+
+/* UI Components */
+.btn {
+    background-color: var(--primary-medium);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn:hover { background-color: var(--primary-dark); }
+.btn-full { width: 100%; }
+
+.card-icon { font-size: 32px; color: var(--primary-green); margin-bottom: 10px; }
+.card-icon.accent { color: var(--accent-green); }
+
+/* Forms */
+.form-card { max-width: 500px; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Charts & Stats */
+.chart-container { width: 220px; height: 220px; }
+.chart-container-large { height: 240px; }
+.score { font-size: 38px; color: var(--primary-dark); }
+.score span { font-size: 16px; font-weight: normal; }
+.status-good { color: var(--accent-green); font-weight: 700; }
+
+/* Chat Module */
+.chat-card { max-width: 700px; }
+.chat-box {
+    height: 380px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #FAFAFA;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.message.bot { background-color: #E0F2F1; color: var(--primary-dark); align-self: flex-start; }
+.message.user { background-color: var(--primary-medium); color: white; align-self: flex-end; }
+.chat-input-container { display: flex; gap: 10px; margin-top: 15px; }
+
+/* Table */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+.data-table th { background-color: #F8FAFC; color: var(--text-muted); font-size: 13px; }
+.table-summary { font-weight: bold; background-color: #F8FAFC; }
+
+/* Estilos adicionales para Eco-Acción */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-medium);
+    cursor: pointer;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+/* ==========================================
+   ESTILOS RESPONSIVOS (MÓVIL Y LAPTOP)
+   ========================================== */
+
+/* Botón Hamburguesa (Oculto en Laptop) */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--primary-dark);
+    cursor: pointer;
+    margin-right: auto;
+}
+
+/* Reglas para Celulares y Pantallas Pequeñas (<= 768px) */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    /* Ocultar barra lateral en móvil por defecto */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+    }
+
+    /* Mostrar barra lateral cuando esté activa */
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Mostrar botón hamburguesa en la cabecera */
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Ajuste de contenedor principal */
+    .main-container {
+        width: 100%;
+    }
+
+    .view-content {
+        padding: 15px;
+    }
+
+    /* Banner de bienvenida responsivo */
+    .banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .banner-icon {
+        font-size: 70px;
+    }
+
+    /* Reorganizar cuadrículas a 1 sola columna en celular */
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ajustar tablas para desplazamiento horizontal si no caben */
+    .card {
+        overflow-x: auto;
+        padding: 15px;
+    }
+
+    .chart-container {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+/* Estilos para el módulo de Recomendaciones */
+.recommendations-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+}
+
+.recommendation-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.rec-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.bg-blue { background-color: #1E88E5; }
+.bg-yellow { background-color: #FFB300; }
+.bg-cyan { background-color: #26C6DA; }
+.bg-purple { background-color: #AB47BC; }
+
+.rec-content {
+    flex-grow: 1;
+}
+
+.rec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.rec-header h3 {
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-warning { background-color: #FFE0B2; color: #E65100; }
+.badge-info { background-color: #E1F5FE; color: #0277BD; }
+.badge-success { background-color: #E8F5E9; color: #2E7D32; }
+
+@media (max-width: 600px) {
+    .recommendation-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Perfil de usuario en la Sidebar */
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    margin-top: auto; /* Empuja el perfil hacia el fondo */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-user .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--accent-green);
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.sidebar-user .user-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.sidebar-user .user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.sidebar-user .user-role {
+    font-size: 11px;
+    color: #C2D6D0;
+}
+
+.sidebar-user .muted-icon {
+    font-size: 12px;
+    color: #C2D6D0;
+}
+/* ==========================================
+   DISEÑO INTEGRAL MEJORADO - ECO-HUELLA
+   ========================================== */
+
+:root {
+    --primary-dark: #1ebd88;
+    --primary-medium: #145C45;
+    --primary-light: #238A66;
+    --accent-green: #2ECC71;
+    --accent-gold: #F39C12;
+    --bg-main: #F4F7F6;
+    --card-bg: #FFFFFF;
+    --text-dark: #2C3E50;
+    --text-muted: #7F8C8D;
+    --border-color: #E2E8F0;
+    --radius-lg: 16px;
+    --radius-sm: 10px;
+    --shadow-soft: 0 10px 25px -5px rgba(10, 58, 42, 0.05), 0 8px 10px -6px rgba(10, 58, 42, 0.03);
+    --shadow-hover: 0 20px 30px -10px rgba(10, 58, 42, 0.12);
+}
+
+body {
+    background-color: var(--bg-main);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+}
+
+/* ------------------------------------------
+   1. BARRA LATERAL (SIDEBAR)
+   ------------------------------------------ */
+.sidebar {
+    background: linear-gradient(180deg, var(--primary-dark) 0%, #062319 100%);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+    padding: 25px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand i {
+    font-size: 24px;
+    color: var(--accent-green);
+    filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.4));
+}
+
+.brand h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+}
+
+/* Menú de Navegación */
+.nav-menu {
+    padding: 15px 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    color: #A3B8B0;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.nav-item i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover {
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.06);
+    transform: translateX(4px);
+}
+
+.nav-item.active {
+    color: #FFFFFF;
+    background: linear-gradient(90deg, var(--primary-medium) 0%, rgba(20, 92, 69, 0.4) 100%);
+    border-left: 4px solid var(--accent-green);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item.active i {
+    color: var(--accent-green);
+    transform: scale(1.1);
+}
+
+/* ------------------------------------------
+   2. TARJETAS Y PANTALLAS PRINCIPALES
+   ------------------------------------------ */
+.view-content h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.view-content .icon-primary {
+    color: var(--primary-medium);
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* ------------------------------------------
+   3. MÓDULOS DE REGISTRO (Transporte, Agua, Luz, Residuos)
+   ------------------------------------------ */
+.form-card {
+    border-top: 5px solid var(--primary-medium);
+    border-radius: var(--radius-lg);
+}
+
+/* Colores temáticos mejorados por módulo */
+#transporte .form-card { border-top-color: #3498DB; }
+#electricidad .form-card { border-top-color: #F1C40F; }
+#agua .form-card { border-top-color: #00CEC9; }
+#residuos .form-card { border-top-color: #9B59B6; }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #5A6A85;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    border: 1.5px solid #E2E8F0;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 15px;
+    background-color: #F8FAFC;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-medium);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 4px rgba(20, 92, 69, 0.1);
+}
+
+/* Botón principal */
+.btn {
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%);
+    border-radius: var(--radius-sm);
+    padding: 14px 24px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(10, 58, 42, 0.2);
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(10, 58, 42, 0.3);
+}
+
+/* ------------------------------------------
+   4. HISTORIAL Y ECO-CHAT
+   ------------------------------------------ */
+/* Tabla de historial estilizada */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th {
+    background-color: #F1F5F9;
+    color: #475569;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+tr:hover td {
+    background-color: #F8FAFC;
+}
+
+/* ECO-CHAT estilizado */
+.chat-box {
+    border-radius: var(--radius-lg);
+    background: #F8FAFC;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+.chat-message.user {
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%);
+    color: white;
+    border-radius: 16px 16px 2px 16px;
+}
+
+.chat-message.bot {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    border-radius: 16px 16px 16px 2px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Contenedor principal de los formularios / Secciones */
+.view-content, .form-card, fieldset {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px); /* Efecto cristal desenfocado */
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(129, 199, 132, 0.3);
+  padding: 25px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+/* Efecto al pasar el cursor sobre la tarjeta del formulario */
+.form-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px 0 rgba(46, 125, 50, 0.15);
+}
+
+/* Encabezados y títulos dentro de formularios */
+.form-card h2, .form-card h3 {
+  color: #1b5e20;
+  font-weight: 700;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Estilo para las etiquetas (labels) */
+label {
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 6px;
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* Campos de entrada (inputs, selects, textareas) */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #c8e6c9;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  color: #2c3e50;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Efecto al hacer foco/clic en un campo */
+input:focus, select:focus, textarea:focus {
+  border-color: #137017;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgb(56, 168, 59);
+}
+
+/* Botones de envío/guardar de los formularios */
+button[type="submit"], .btn-save {
+  background: linear-gradient(135deg, #4caf50 0%, #2a8f2f 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(75, 219, 82, 0.842);
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+button[type="submit"]:hover, .btn-save:hover {
+  background: linear-gradient(135deg, #20ad27 0%, #34a33b 100%);
+  box-shadow: 0 6px 20px rgba(39, 179, 46, 0.815);
+  transform: translateY(-2px);
+}
+
+button[type="submit"]:active, .btn-save:active {
+  transform: translateY(0);
+}
+
+/* Fondo general con degradado biatonal ecológico */
+body, .main-content {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #21b926 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   PALETA DE COLORES Y VARIABLES ORGÁNICAS
+   ========================================== */
+:root {
+  --primary-green: #2e7d32;
+  --light-green: #e8f5e9;
+  --accent-green: #4caf50;
+  --mint-green: #a5d6a7;
+  --dark-text: #1b4332;
+  --muted-text: #52796f;
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(165, 214, 167, 0.4);
+  --card-shadow: 0 10px 30px -5px rgba(46, 125, 50, 0.08);
+}
+
+/* ==========================================
+   FONDO GENERAL Y TIPOGRAFÍA
+   ========================================== */
+body, .main-content {
+  background: linear-gradient(135deg, #f4fbf7 0%, #e8f5e9 50%, #d8f3dc 100%);
+  background-attachment: fixed;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--dark-text);
+  min-height: 100vh;
+}
+
+/* ==========================================
+   TARJETAS Y FORMULARIOS (Efecto Cristal Ecológico)
+   ========================================== */
+.view-content, .form-card, fieldset {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 24px;
+}
+
+.form-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px -5px rgba(46, 125, 50, 0.15);
+  border-color: rgba(76, 175, 80, 0.6);
+}
+
+/* Encabezados con estilo natural */
+h2, h3, .form-card h2 {
+  color: var(--dark-text);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Etiqueta de los campos */
+label {
+  font-weight: 600;
+  color: var(--muted-text);
+  margin-bottom: 8px;
+  display: block;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   ENTRADAS DE DATOS (Inputs, Selects, Textareas)
+   ========================================== */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #c8e6c9;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  color: var(--dark-text);
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-green);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.18);
+}
+
+/* ==========================================
+   BOTONES ECOLÓGICOS (Con degradado y animación)
+   ========================================== */
+button[type="submit"], .btn-save, #eco-send-btn {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: #ffffff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.25);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover, .btn-save:hover, #eco-send-btn:hover {
+  background: linear-gradient(135deg, #66bb6a 0%, #1b5e20 100%);
+  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.35);
+  transform: translateY(-2px);
+}
+
+button[type="submit"]:active, .btn-save:active {
+  transform: translateY(0);
+}
+
+/* Corrección de burbujas para ECO-CHAT */
+/* Contenedor del chat */
+.chat-box {
+    height: 380px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #FAFAFA;
+}
+
+/* Estilo general de las burbujas */
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+/* Mensaje del Bot (Izquierda) */
+.message.bot {
+    background-color: #E0F2F1 !important;
+    color: #060706 !important;
+    align-self: flex-start !important;
+    text-align: left;
+    border-top-left-radius: 2px;
+}
+
+/* Mensaje del Usuario (Derecha) */
+.message.user {
+    background-color: #145C45 !important;
+    color: #FFFFFF !important;
+    align-self: flex-end !important;
+    text-align: left;
+    border-top-right-radius: 2px;
+}
+/* ==========================================
+   ALINEACIÓN Y CENTRADO DE VISTAS/FORMULARIOS
+   ========================================== */
+
+/* Centrar el contenedor principal en la pantalla */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente todo el contenido */
+  justify-content: flex-start;
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* Centrado y ancho controlado para cada vista */
+.view-content {
+  width: 100%;
+  max-width: 600px; /* Tamaño ideal para lectura y formularios limpios */
+  margin: 0 auto 30px auto; /* Margen automático a los lados para centrar */
+}
+
+/* Estructura centrada para las tarjetas de formulario */
+.form-card {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto 24px auto; /* Centra la tarjeta horizontalmente */
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  padding: 32px;
+  box-shadow: var(--card-shadow);
+  box-sizing: border-box;
+}
+
+/* Centrar títulos y encabezados de los formularios */
+.form-card h2, .form-card h3 {
+  text-align: center;
+  justify-content: center; /* Centra el texto junto con el icono o emoji */
+  margin-bottom: 24px;
+}
+
+/* Organización de los campos del formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Mantiene las etiquetas alineadas a la izquierda dentro del campo */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Asegurar que los botones queden centrados y estilizados */
+.form-card button[type="submit"], 
+.form-card .btn-save {
+  display: block;
+  margin: 25px auto 0 auto; /* Centra el botón al final del formulario */
+  max-width: 300px; /* Ancho cómodo para el botón */
+}
+
+/* Descripción superior */
+.form-description {
+  text-align: center;
+  color: var(--muted-text);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+/* Lista de casillas de verificación (Checkboxes) */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Elemento contenedor de cada casilla */
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1.5px solid #c8e6c9;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 0.95rem;
+  text-transform: none; /* Mantener texto normal */
+  color: var(--dark-text);
+}
+
+.checkbox-item:hover {
+  background: #ffffff;
+  border-color: var(--accent-green);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.08);
+}
+
+/* Estilo para el input de casilla nativo */
+.checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-green); /* Cambia el color de la palomita */
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+/* Mensaje de confirmación en la parte inferior */
+.action-summary-text {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary-green);
+  font-size: 0.95rem;
+}
+
+/* Pantalla de acceso ECO-HUELLA */
+.auth-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f0f5f1;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 32px;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+.auth-logo {
+    display: block;
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.auth-card h1,
+.auth-card > p {
+    text-align: center;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 24px 0;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 11px 8px;
+    border: 1px solid #d5dfd7;
+    border-radius: 8px;
+    background: #f5f7f5;
+    cursor: pointer;
+}
+
+.auth-tab.active {
+    color: #ffffff;
+    background: #28794b;
+    border-color: #28794b;
+}
+
+.auth-card form label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 600;
+}
+
+.auth-card form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccd5ce;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.auth-card form input:focus {
+    outline: 2px solid #28794b;
+    outline-offset: 1px;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.auth-message {
+    color: #b42318;
+    font-size: 14px;
+}
+
+.auth-message:empty {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 24px 20px;
+    }
+}
+
+
+
+/* Contenedor del Toast de Notificación */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #2e7d32; /* Verde ecológico */
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Estado activo cuando se muestra */
+.toast-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Icono integrado */
+.toast-icon {
+  font-size: 20px;
+}
+
+/* ==========================================
+   VENTANA MODAL CENTRADA
+   ========================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  padding: 32px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 85%;
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-card {
+  transform: scale(1);
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  color: #1b4332;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.modal-message {
+  color: #555555;
+  font-size: 15px;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.modal-btn {
+  background: linear-gradient(135deg, #2e7d32 0%, #1b4332 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 200px;
+}
+
+.modal-btn:hover {
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  transform: translateY(-1px);
+}
+
+.modal-btn:active {
+  transform: scale(0.97);
+}

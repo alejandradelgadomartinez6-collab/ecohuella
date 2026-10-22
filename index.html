@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO-HUELLA</title>
+    <!-- FontAwesome Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js para Gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Estilos locales -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Pantalla de acceso ECO-HUELLA -->
+<div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+        <img src="assets/logo.png" alt="Logo ECO-HUELLA" class="auth-logo">
+
+        <h1>ECO-HUELLA</h1>
+        <p class="muted">Mide tu impacto. Actúa para reducirlo.</p>
+
+        <div class="auth-tabs">
+            <button type="button" id="tab-login" class="auth-tab active">
+                Iniciar sesión
+            </button>
+            <button type="button" id="tab-register" class="auth-tab">
+                Registrarse
+            </button>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <form id="login-form">
+            <label for="login-correo">Correo electrónico</label>
+            <input
+                type="email"
+                id="login-correo"
+                required
+                maxlength="150"
+                autocomplete="email"
+                placeholder="tu@correo.com"
+            >
+
+            <label for="login-password">Contraseña</label>
+            <input
+                type="password"
+                id="login-password"
+                required
+                autocomplete="current-password"
+                placeholder="Tu contraseña"
+            >
+
+            <p id="login-mensaje" class="auth-message" role="alert"></p>
+
+            <button type="submit" class="btn auth-submit">
+                Iniciar sesión
+            </button>
+        </form>
+
+        <!-- Formulario de registro -->
+        <form id="register-form" hidden>
+            <label for="register-nombre">Nombre</label>
+            <input
+                type="text"
+                id="register-nombre"
+                required
+                maxlength="100"
+                autocomplete="name"
+                placeholder="Tu nombre"
+            >
+
+            <label for="register-correo">Correo electrónico</label>
+            <input
+                type="email"
+                id="register-correo"
+                required
+                maxlength="150"
+                autocomplete="email"
+                placeholder="tu@correo.com"
+            >
+
+            <label for="register-password">Crear contraseña</label>
+            <input
+                type="password"
+                id="register-password"
+                required
+                minlength="8"
+                autocomplete="new-password"
+                placeholder="Mínimo 8 caracteres"
+            >
+
+            <p id="register-mensaje" class="auth-message" role="alert"></p>
+
+            <button type="submit" class="btn auth-submit">
+                Crear cuenta
+            </button>
+        </form>
+    </div>
+</div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="assets/logo.png" alt="ECO-HUELLA Logo" style="height: 35px;">
+            <h2>ECO-HUELLA</h2>
+        </div>
+            
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="showView('inicio', event)"><i class="fa-solid fa-house"></i> Inicio</li>
+            <li class="nav-item" onclick="showView('mi-huella', event)"><i class="fa-solid fa-chart-pie"></i> Mi Huella</li>
+            <li class="nav-item" onclick="showView('transporte', event)"><i class="fa-solid fa-car"></i> Transporte</li>
+            <li class="nav-item" onclick="showView('electricidad', event)"><i class="fa-solid fa-bolt"></i> Electricidad</li>
+            <li class="nav-item" onclick="showView('agua', event)"><i class="fa-solid fa-droplet"></i> Agua</li>
+            <li class="nav-item" onclick="showView('residuos', event)"><i class="fa-solid fa-trash"></i> Residuos</li>
+            <li class="nav-item" onclick="showView('recomendaciones', event)"><i class="fa-solid fa-lightbulb"></i> Recomendaciones</li>
+            <li class="nav-item" onclick="showView('eco-accion', event)"><i class="fa-solid fa-square-check"></i> Eco-Acción</li>
+            <li class="nav-item" onclick="showView('historial', event)"><i class="fa-solid fa-clock-rotate-left"></i> Historial</li>
+            <li class="nav-item" onclick="showView('eco-chat', event)"><i class="fa-solid fa-robot"></i> ECO-CHAT</li>
+        </ul>
+
+        <!-- Perfil de usuario en la barra lateral -->
+        <div class="sidebar-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <div class="user-info">
+                <span class="user-name">Lilian</span>
+                <span class="user-role">Estudiante</span>
+            </div>
+            <i class="fa-solid fa-chevron-down muted-icon"></i>
+        </div>
+    </aside>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <!-- Botón Menú Hamburguesa para Celular -->
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </header>
+
+        <!-- 1. Pantalla de Inicio -->
+        <section id="inicio" class="view-content active">
+            <div class="banner">
+                <div class="banner-text">
+                    <h1>ECO-HUELLA</h1>
+                    <p class="tagline">"Mide tu impacto. Actúa para reducirlo."</p>
+                    <p>Registra tus datos cotidianos, conoce tu impacto ambiental y recibe recomendaciones de inteligencia artificial.</p>
+                    <br>
+                    <button class="btn" onclick="showView('transporte')">Comenzar Registro</button>
+                </div>
+                <i class="fa-solid fa-earth-americas banner-icon"></i>
+            </div>
+            <div class="grid-2">
+                <div class="card text-center">
+                    <i class="fa-solid fa-leaf card-icon"></i>
+                    <h3>Conoce tu huella</h3>
+                    <p class="muted">Mide tu impacto en carbono y uso de recursos.</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fa-solid fa-lightbulb card-icon accent"></i>
+                    <h3>Recibe recomendaciones</h3>
+                    <p class="muted">IA personalizada para mejorar tus hábitos cotidianos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Pantalla Resumen / Mi Huella -->
+        <section id="mi-huella" class="view-content">
+            <h2>Mi huella ambiental</h2>
+            <p class="muted mb-20">Resumen de tu impacto en cada categoría</p>
+            <div class="grid-2">
+                <div class="card flex-center">
+                    <div class="chart-container">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                    <div class="text-center mt-15">
+                        <h1 class="score">78 <span>puntos</span></h1>
+                        <p class="status-good">¡Vas muy bien!</p>
+                        <p class="muted small">Tu impacto es menor que el promedio.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Impacto por categoría</h3>
+                    <div class="chart-container-large mt-15">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <!-- 3. Registro - Transporte -->
+        <section id="transporte" class="view-content">
+            <h2><i class="fa-solid fa-car icon-primary"></i> Registro de datos – Transporte</h2>
+            <p class="muted mb-20">Registra tu información de transporte diario</p>
+            <div class="card form-card">
+                <form onsubmit="saveTransportData(event)">
+                    <div class="form-group">
+                        <label for="transport-type">Medio de transporte</label>
+                        <select id="transport-type" class="form-control" onchange="toggleFuelType()">
+                            <option value="Automóvil">Automóvil</option>
+                            <option value="Autobús / Transporte Público">Autobús / Transporte Público</option>
+                            <option value="Motocicleta">Motocicleta</option>
+                            <option value="Bicicleta / Caminata">Bicicleta / Caminata</option>
+                        </select>
+                    </div>
+
+                    <!-- Tipo de combustible y opción Eléctrico -->
+                    <div class="form-group" id="fuel-group">
+                        <label for="fuel-type">Tipo de Combustible / Propulsión</label>
+                        <select id="fuel-type" class="form-control">
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Diésel">Diésel</option>
+                            <option value="Gas L.P.">Gas L.P.</option>
+                            <option value="Eléctrico">Eléctrico (Vehículo 100% Eléctrico / Cero emisiones directas)</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="distance">Distancia recorrida (km)</label>
+                        <input type="number" id="distance" class="form-control" value="20" min="0" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frecuencia de viajes por semana</label>
+                        <select id="frequency" class="form-control">
+                            <option>5 días a la semana</option>
+                            <option>7 días a la semana</option>
+                            <option>1 a 3 días a la semana</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-full">Guardar Transporte</button>
+                </form>
+            </div>
+        </section>
+        <!-- 4. Registro - Electricidad -->
+        <section id="electricidad" class="view-content">
+            <h2><i class="fa-solid fa-bolt icon-primary"></i> Registro de datos – Electricidad</h2>
+            <p class="muted mb-20">Registra el consumo energético de tu hogar</p>
+            <div class="card form-card">
+                <form onsubmit="saveElectricityData(event)">
+                    <div class="form-group">
+                        <label for="kwh">Consumo bimestral aproximado (kWh)</label>
+                        <input type="number" id="kwh" class="form-control" value="250" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="appliances">Uso de aire acondicionado / Calefacción</label>
+                        <select id="appliances" class="form-control">
+                            <option>No utilizo</option>
+                            <option>Uso ocasional (1-3 hrs/día)</option>
+                            <option>Uso intensivo (más de 4 hrs/día)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-full">Guardar Electricidad</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. Registro - Agua -->
+        <section id="agua" class="view-content">
+            <h2><i class="fa-solid fa-droplet icon-primary"></i> Registro de datos – Agua</h2>
+            <p class="muted mb-20">Registra el uso estimado de agua diario o tu consumo según tu recibo</p>
+            <div class="card form-card">
+                <form onsubmit="saveWaterData(event)">
+                    <div class="form-group">
+                        <label for="water-m3">Consumo del recibo de agua (m³)</label>
+                        <input type="number" id="water-m3" class="form-control" placeholder="Ej. 15 (m³ consumidos al mes)" min="0" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="shower-time">Duración promedio de la ducha (minutos)</label>
+                        <input type="number" id="shower-time" class="form-control" value="10" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="water-habits">Hábitos de ahorro</label>
+                        <select id="water-habits" class="form-control">
+                            <option>Cierro la llave al cepillarme / enjabonarme</option>
+                            <option>Dejo la llave abierta ocasionalmente</option>
+                            <option>Tengo aireadores / ahorradores instalados</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-full">Guardar Agua</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 6. Registro - Residuos -->
+        <section id="residuos" class="view-content">
+            <h2><i class="fa-solid fa-trash icon-primary"></i> Registro de datos – Residuos</h2>
+            <p class="muted mb-20">Registra la generación y peso estimado de tus desechos</p>
+            <div class="card form-card">
+                <form onsubmit="saveWasteData(event)">
+                    <div class="form-group">
+                        <label for="waste-bags">Bolsas de basura generadas a la semana</label>
+                        <input type="number" id="waste-bags" class="form-control" value="3" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="waste-weight">Peso estimado total por semana (kg)</label>
+                        <input type="number" id="waste-weight" class="form-control" placeholder="Ej. 8.5 (kg aproximados)" min="0" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="recycling">Prácticas de separación y reciclaje</label>
+                        <select id="recycling" class="form-control">
+                            <option>Separo orgánicos e inorgánicos</option>
+                            <option>Reciclo plásticos, cartón y vidrio</option>
+                            <option>Realizo compostaje en casa</option>
+                            <option>No realizo separación actualmente</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-full">Guardar Residuos</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 7. Pantalla de Recomendaciones -->
+       
+<section id="recomendaciones" class="view-content">
+    <h2>
+        <i class="fa-solid fa-lightbulb icon-primary"></i>
+        Recomendaciones
+    </h2>
+
+    <p class="muted mb-20">
+        Estos consejos se adaptarán a tus registros ambientales.
+    </p>
+
+    <div class="recommendations-container">
+
+        <!-- Transporte -->
+        <div class="card recommendation-card">
+            <div class="rec-icon bg-blue">
+                <i class="fa-solid fa-car"></i>
+            </div>
+            <div class="rec-content">
+                <div class="rec-header">
+                    <h3>Transporte</h3>
+                    <span id="estado-transporte" class="badge badge-info">
+                        Analizando...
+                    </span>
+                </div>
+                <p id="consejo-transporte">
+                    Estamos revisando tus registros de transporte.
+                </p>
+            </div>
+        </div>
+
+        <!-- Electricidad -->
+        <div class="card recommendation-card">
+            <div class="rec-icon bg-yellow">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div class="rec-content">
+                <div class="rec-header">
+                    <h3>Electricidad</h3>
+                    <span id="estado-electricidad" class="badge badge-info">
+                        Analizando...
+                    </span>
+                </div>
+                <p id="consejo-electricidad">
+                    Estamos revisando tus registros de electricidad.
+                </p>
+            </div>
+        </div>
+
+        <!-- Agua -->
+        <div class="card recommendation-card">
+            <div class="rec-icon bg-cyan">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+            <div class="rec-content">
+                <div class="rec-header">
+                    <h3>Agua</h3>
+                    <span id="estado-agua" class="badge badge-info">
+                        Analizando...
+                    </span>
+                </div>
+                <p id="consejo-agua">
+                    Estamos revisando tus registros de agua.
+                </p>
+            </div>
+        </div>
+
+        <!-- Residuos -->
+        <div class="card recommendation-card">
+            <div class="rec-icon bg-purple">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+            <div class="rec-content">
+                <div class="rec-header">
+                    <h3>Residuos</h3>
+                    <span id="estado-residuos" class="badge badge-info">
+                        Analizando...
+                    </span>
+                </div>
+                <p id="consejo-residuos">
+                    Estamos revisando tus registros de residuos.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+        <!-- 8. Módulo Eco-Acción -->
+        <section id="eco-accion" class="view-content">
+            <h2><i class="fa-solid fa-square-check icon-primary"></i> Eco-Acción</h2>
+            <p class="muted mb-20">Selecciona las acciones sustentables que realizaste hoy para reducir tu impacto ambiental:</p>
+
+            <div class="card form-card">
+                <form onsubmit="saveEcoAction(event)">
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="act-recycling">
+                            <span class="checkmark"></span>
+                            Reciclaje de residuos
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="act-compost">
+                            <span class="checkmark"></span>
+                            Compostaje de orgánicos
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="act-water">
+                            <span class="checkmark"></span>
+                            Ahorro de agua
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="act-travel">
+                            <span class="checkmark"></span>
+                            Reducción de viajes en auto
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="act-electricity">
+                            <span class="checkmark"></span>
+                            Ahorro de energía eléctrica
+                        </label>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="custom-action">Otra acción personalizada:</label>
+                        <input type="text" id="custom-action" class="form-control" placeholder="Ej. Utilicé termo reutilizable todo el día">
+                    </div>
+
+                    <button type="submit" class="btn btn-full" style="margin-top: 15px;">Registrar Acciones</button>
+                </form>
+
+               
+<div id="action-summary" class="action-summary-text"></div>
+
+<div class="card" style="margin-top: 20px;">
+    <h3>Mis Eco-Acciones registradas</h3>
+    <p class="muted">Acciones consultadas desde la base de datos.</p>
+
+    <ul id="eco-acciones-lista">
+        <li>Cargando Eco-Acciones...</li>
+    </ul>
+</div>
+
+            </div>
+        </section>
+
+        <!-- 9. Historial y Comparación -->
+       
+<section id="historial" class="view-content">
+    <h2>Historial de impacto</h2>
+    <p class="muted mb-20">
+        Consulta tus registros guardados en la base de datos
+    </p>
+
+    <div class="card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Valor</th>
+                    <th>Detalle</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="historialBody">
+                <tr>
+                    <td colspan="4">Cargando historial...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+        <!-- 10. ECO-CHAT (Asistente IA) -->
+        <section id="eco-chat" class="view-content">
+            <h2><i class="fa-solid fa-robot icon-primary"></i> ECO-CHAT</h2>
+            <p class="muted mb-15">Tu asistente de inteligencia artificial</p>
+            <div class="card chat-card">
+                <div class="chat-box" id="chatBox">
+                    <div class="message bot">
+                        ¡Hola! Soy ECO-CHAT. Estoy aquí para ayudarte a entender tu huella ambiental y darte recomendaciones personalizadas. ¿En qué puedo ayudarte hoy?
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="userInput" class="form-control" placeholder="Escribe tu pregunta..." onkeypress="handleKeyPress(event)">
+                    <button class="btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Ventana Modal Centrada -->
+    <div id="modal-container" class="modal-overlay">
+        <div class="modal-card">
+            <div id="modal-icon" class="modal-icon">🌱</div>
+            <h3 id="modal-title" class="modal-title">¡Información Guardada!</h3>
+            <p id="modal-message" class="modal-message">Tus datos se han registrado correctamente en ECO-HUELLA.</p>
+            <button id="modal-close-btn" class="modal-btn">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Scripts de la aplicación -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+</body>
+</html>

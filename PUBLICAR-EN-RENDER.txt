@@ -1,0 +1,19 @@
+ECO-HUELLA — publicación corregida
+
+IMPORTANTE: Netlify está diseñado principalmente para sitios estáticos y funciones serverless; no ejecuta server.js como servidor Express persistente. Usa Render Web Service para este proyecto Node.js.
+
+1. Descomprime esta carpeta.
+2. Sube SOLO el contenido de esta carpeta a un repositorio de GitHub (no subas .env ni claves).
+3. En Render crea New > Blueprint y conecta el repositorio que contiene render.yaml, o crea un Web Service con Build Command: npm install y Start Command: npm start.
+4. En Environment agrega GROQ_API_KEY con tu clave de Groq. JWT_SECRET se genera automáticamente si usas Blueprint.
+5. Configura DB_SERVER, DB_PORT, DB_USER, DB_PASSWORD y DB_NAME con una base SQL Server accesible desde Internet. No uses localhost para una base de datos que sigue en tu PC.
+6. Deploy y prueba primero la URL raíz; luego prueba /api/tablas. Si la página abre pero las funciones de base de datos fallan, revisa los logs y los datos SQL.
+
+Qué se corrigió en este paquete:
+- Se agregó groq-sdk a package.json, ya que server.js lo importa.
+- Se agregó el script npm start.
+- Se eliminó el .env del paquete para no exponer secretos.
+- Se eliminó node_modules para que el alojamiento instale dependencias de forma limpia.
+- Se incluyó configuración de Blueprint para Render.
+
+NOTA: Esto corrige la estructura de despliegue, pero no crea una base de datos SQL en la nube. El registro, login y guardado de registros requieren que SQL Server sea accesible y tenga las tablas esperadas. No compartas aquí contraseñas ni claves API.

@@ -1,0 +1,13 @@
+
+# Proteger credenciales y configuraciones privadas
+.env
+.env.*
+
+# Permitir archivos de ejemplo sin secretos
+!.env.example
+
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de registro
+*.log
